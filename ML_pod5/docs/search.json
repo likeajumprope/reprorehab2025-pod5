@@ -1,0 +1,354 @@
+[
+  {
+    "objectID": "setup.html",
+    "href": "setup.html",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "",
+    "text": "A virtual environment (venv) isolates a project’s Python packages so different projects can use different versions without conflicts. This guide shows how\n\nto create a venv,\ninstall packages,\nand configure VS Code to use it on macOS/Linux and Windows.",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#overview",
+    "href": "setup.html#overview",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "",
+    "text": "A virtual environment (venv) isolates a project’s Python packages so different projects can use different versions without conflicts. This guide shows how\n\nto create a venv,\ninstall packages,\nand configure VS Code to use it on macOS/Linux and Windows.",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#why-environments-matter-in-python",
+    "href": "setup.html#why-environments-matter-in-python",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "Why environments matter in Python",
+    "text": "Why environments matter in Python\n\n\n\n\n\n\nTip\n\n\n\nEnvironments keep your work reproducible, conflict-free, and safe.\n\n\nPython installs packages globally by default. Over time, this can create dependency conflicts—for example:\n\nProject A needs NumPy 1.22, while Project B needs NumPy 2.0.\n\nInstalling new libraries for one project breaks another.\n\nReproducing your setup on another computer (or on a cluster) becomes difficult.\n\nA virtual environment solves this by giving each project its own isolated package space:\n\nYou can install, upgrade, or remove packages without affecting other projects.\n\nYour requirements.txt or environment.yml fully defines what’s needed.\n\nColleagues (or future you) can recreate the same environment anywhere.\n\nThink of it as a sandboxed workspace for each project.\n\n\n\n\n\n\nTip\n\n\n\nWhen to use venv vs conda?\nIf you don’t need compiled scientific stacks managed by conda, venv + pip is lightweight and portable. You can always switch to conda later if needed.",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#prerequisites",
+    "href": "setup.html#prerequisites",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nPython 3.10+ (latest version is 3.13) installed and available on your PATH (python --version).\nVS Code with the Python and Jupyter extensions.\nBasic terminal (macOS/Linux) or PowerShell (Windows) access.",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#create-a-virtual-environment",
+    "href": "setup.html#create-a-virtual-environment",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "1. Create a virtual environment",
+    "text": "1. Create a virtual environment\n\nmacOS / Linux\n# in your project folder\npython -m venv .venv\n\n# activate it\nsource .venv/bin/activate\n# your prompt should show (.venv)\n\n\nWindows powershell:\n# in your project folder\npython -m venv .venv\n\n# activate it\n.\\.venv\\Scripts\\Activate.ps1\n# your prompt should show (.venv)\nYou should be able to see a folder .venv in your project folder.\n\n\n\n\n\n\nNote\n\n\n\nThe folder name .venv is conventional and recognized by VS Code automatically if it lives in the project root.",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#install-your-project-packages",
+    "href": "setup.html#install-your-project-packages",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "2. Install your project packages",
+    "text": "2. Install your project packages\nWith the environment activated, install what you need in the terminal. The main installer in python is pip, while other, newer (better) options do exist (uv, conda).\npip install numpy pandas matplotlib scikit-learn jupyter",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#open-the-project-in-vs-code",
+    "href": "setup.html#open-the-project-in-vs-code",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "3. Open the project in VS Code",
+    "text": "3. Open the project in VS Code\n\nFile → Open Folder… and select your project folder (the one containing .venv).\nVS Code usually detects the environment. If not, select it manually (next section).",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#select-the-interpreter-in-vs-code",
+    "href": "setup.html#select-the-interpreter-in-vs-code",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "4. Select the interpreter in VS Code",
+    "text": "4. Select the interpreter in VS Code\n1 Press ⌘⇧P / Ctrl+Shift+P → Python: Select Interpreter\n2.  Choose your environment path:\n./.venv/bin/python           # macOS/Linux\n.\\.venv\\Scripts\\python.exe   # Windows",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#jupyter-notebooks-optional",
+    "href": "setup.html#jupyter-notebooks-optional",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "5. Jupyter & notebooks (optional)",
+    "text": "5. Jupyter & notebooks (optional)\nWhen you create or open a notebook (.ipynb), click the kernel picker (top-right) and select your .venv interpreter. Select your .venv interpreter",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "setup.html#test-your-environment.",
+    "href": "setup.html#test-your-environment.",
+    "title": "Using Python Virtual Environments (venv) in VS Code",
+    "section": "6 Test your environment.",
+    "text": "6 Test your environment.\n\nActivate your environment in your terminal. Install the numpy package\n\npip install numpy\n\nCreate a file test.py. Import the numpy package\n\nimport numpy as np",
+    "crumbs": [
+      "Set-up",
+      "Using Python Virtual Environments (venv) in VS Code"
+    ]
+  },
+  {
+    "objectID": "basic-jupyter.html",
+    "href": "basic-jupyter.html",
+    "title": "Jupyter Notebooks in Google Colab",
+    "section": "",
+    "text": "Alternatively, if you want to use Python without worrying about installing libraries or managing dependencies, you can use Jupyter notebooks and run them directly in Google Colab — a free, cloud-based platform provided by Google.",
+    "crumbs": [
+      "Set-up",
+      "Jupyter Notebooks in Google Colab"
+    ]
+  },
+  {
+    "objectID": "basic-jupyter.html#what-is-google-colab",
+    "href": "basic-jupyter.html#what-is-google-colab",
+    "title": "Jupyter Notebooks in Google Colab",
+    "section": "1. What is Google Colab?",
+    "text": "1. What is Google Colab?\nGoogle Colab (short for Collaboratory) is a cloud service that lets you run Jupyter notebooks in your browser, with no local setup required.\nKey advantages: - No need to install Python or libraries. - Access to free GPUs and TPUs for computation. - Direct integration with Google Drive for storage. - Same syntax and workflow as local Jupyter notebooks (.ipynb files).\nYou can think of it as “Jupyter Notebook in the cloud.”",
+    "crumbs": [
+      "Set-up",
+      "Jupyter Notebooks in Google Colab"
+    ]
+  },
+  {
+    "objectID": "basic-jupyter.html#how-to-open-a-notebook-in-colab",
+    "href": "basic-jupyter.html#how-to-open-a-notebook-in-colab",
+    "title": "Jupyter Notebooks in Google Colab",
+    "section": "2. How to open a notebook in Colab",
+    "text": "2. How to open a notebook in Colab\n\nOption A – Start from scratch\n\nGo to https://colab.research.google.com\n\nChoose File → New notebook.\n\nA notebook with a Python 3 runtime will open in your browser.\n\nYou can rename it and save it to your Google Drive.\n\n\n\nOption B – Open an existing notebook\nIf you already have a .ipynb file:\n\nUpload it to Google Drive.\n\nRight-click → Open with → Google Colaboratory.\n(If Colab isn’t listed, choose Connect more apps → search for Colaboratory.)\n\nAlternatively, you can drag-and-drop a notebook directly into an open Colab window.",
+    "crumbs": [
+      "Set-up",
+      "Jupyter Notebooks in Google Colab"
+    ]
+  },
+  {
+    "objectID": "basic-jupyter.html#installing-additional-libraries",
+    "href": "basic-jupyter.html#installing-additional-libraries",
+    "title": "Jupyter Notebooks in Google Colab",
+    "section": "3. Installing additional libraries",
+    "text": "3. Installing additional libraries\nColab comes pre-installed with most scientific packages (NumPy, pandas, matplotlib, scikit-learn, PyTorch, TensorFlow, etc.).\nTo install any additional packages, use pip directly in a cell:\n!pip install seaborn xgboost shap",
+    "crumbs": [
+      "Set-up",
+      "Jupyter Notebooks in Google Colab"
+    ]
+  },
+  {
+    "objectID": "task_setup.html",
+    "href": "task_setup.html",
+    "title": "Task: Setting up VS Code for Python",
+    "section": "",
+    "text": "Set up and test your Python development environment in VS Code using a virtual environment.",
+    "crumbs": [
+      "Set-up",
+      "Task: Setting up VS Code for Python"
+    ]
+  },
+  {
+    "objectID": "task_setup.html#objective",
+    "href": "task_setup.html#objective",
+    "title": "Task: Setting up VS Code for Python",
+    "section": "",
+    "text": "Set up and test your Python development environment in VS Code using a virtual environment.",
+    "crumbs": [
+      "Set-up",
+      "Task: Setting up VS Code for Python"
+    ]
+  },
+  {
+    "objectID": "task_setup.html#step-by-step-instructions",
+    "href": "task_setup.html#step-by-step-instructions",
+    "title": "Task: Setting up VS Code for Python",
+    "section": "Step-by-step instructions",
+    "text": "Step-by-step instructions\n\n1. Check your Python installation\nOpen your terminal and verify that Python is installed: bash    python3 --version\n\n\n2. Install VS Code extensions\nOpen VS Code and install the following: • Python extension • Jupyter extension\n\n\n3. Create and activate a virtual environment\nIn the terminal (inside your project folder), run:\npython3 -m venv .venv\nsource .venv/bin/activate       # macOS/Linux\nOR\n.\\.venv\\Scripts\\Activate.ps1    # Windows\nThen install a few essential packages:\npip install jupyter numpy scikit-learn matplotlib pandas\n\n\n4. Test Python and NumPy in the terminal\nLaunch Python from within your activated environment and check:\nimport numpy as np\nprint(np.__version__)\n\n\n5. Test in VS Code using a Python script\n•   Create a new file called test.py\n•   Add the following code:\nimport numpy as np\nprint(\"NumPy works!\", np.__version__)\n\n\n6. Test in a Jupyter Notebook\n•   Create a new notebook named test.ipynb\n•   In the first cell, add:\nimport numpy as np\nnp.random.rand(3)\n• Run the cell and confirm it executes successfully.\n\n\n7. (Optional) Try running in Google Colab\nUpload your test.ipynb to Google Colab. In the first cell, install NumPy and run:\n!pip install numpy\nimport numpy as np\nprint(\"NumPy works in Colab!\", np.__version__)",
+    "crumbs": [
+      "Set-up",
+      "Task: Setting up VS Code for Python"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html",
+    "href": "types-of-ml.html",
+    "title": "Types of Machine learning Algorithms",
+    "section": "",
+    "text": "Use when: target is numeric (e.g., gait speed, length of stay, brain-age delta).\n\nLinear Regression — baseline linear fit; fast, interpretable.\n\nRidge (L2) — shrinks coefficients; helps multicollinearity.\n\nLasso (L1) — feature selection via sparsity.\n\nElastic Net — hybrid of L1/L2; robust when features are correlated.\n\nGeneralized Linear Models (GLM) — non-Gaussian outcomes (Poisson, Gamma).\n\nSupport Vector Regression (SVR) — robust, kernelized nonlinearity.\n\nTree Ensembles (RF/GBM) — capture nonlinearity & interactions.\n\nUse-cases: predict 6MWT, therapy hours, WMH volume change, LOS.\n\n\n\nUse when: target is categorical (e.g., fall/no-fall, discharge home vs facility).\n\nLogistic Regression — strong baseline, well-calibrated.\nNaive Bayes — simple probabilistic baseline (text, high-dim data).\nk-Nearest Neighbors (kNN) — instance-based, local decision boundaries.\nDecision Trees / Random Forests — interpretable (trees) / strong default (RF).\nGradient Boosted Trees — XGBoost / LightGBM / CatBoost; top tabular performers.\nSupport Vector Machines (SVM) — good in high-dimensional settings.\n\nUse-cases: classify stroke discharge, fall risk from IMU, diagnosis subtypes.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#supervised-learning",
+    "href": "types-of-ml.html#supervised-learning",
+    "title": "Types of Machine learning Algorithms",
+    "section": "",
+    "text": "Use when: target is numeric (e.g., gait speed, length of stay, brain-age delta).\n\nLinear Regression — baseline linear fit; fast, interpretable.\n\nRidge (L2) — shrinks coefficients; helps multicollinearity.\n\nLasso (L1) — feature selection via sparsity.\n\nElastic Net — hybrid of L1/L2; robust when features are correlated.\n\nGeneralized Linear Models (GLM) — non-Gaussian outcomes (Poisson, Gamma).\n\nSupport Vector Regression (SVR) — robust, kernelized nonlinearity.\n\nTree Ensembles (RF/GBM) — capture nonlinearity & interactions.\n\nUse-cases: predict 6MWT, therapy hours, WMH volume change, LOS.\n\n\n\nUse when: target is categorical (e.g., fall/no-fall, discharge home vs facility).\n\nLogistic Regression — strong baseline, well-calibrated.\nNaive Bayes — simple probabilistic baseline (text, high-dim data).\nk-Nearest Neighbors (kNN) — instance-based, local decision boundaries.\nDecision Trees / Random Forests — interpretable (trees) / strong default (RF).\nGradient Boosted Trees — XGBoost / LightGBM / CatBoost; top tabular performers.\nSupport Vector Machines (SVM) — good in high-dimensional settings.\n\nUse-cases: classify stroke discharge, fall risk from IMU, diagnosis subtypes.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#unsupervised-learning",
+    "href": "types-of-ml.html#unsupervised-learning",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Unsupervised learning",
+    "text": "Unsupervised learning\n\nClustering (find structure in unlabeled data)\n\nk-Means — spherical clusters; fast; needs k.\nHierarchical clustering — dendrogram; no fixed k.\nDBSCAN — density-based; finds arbitrary shapes; flags noise.\nGaussian Mixture Models (GMM) — soft assignments; probabilistic.\n\nUse-cases: patient subtyping, gait pattern families, sensor-based phenotypes.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#dimensionality-reduction-feature-extraction",
+    "href": "types-of-ml.html#dimensionality-reduction-feature-extraction",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Dimensionality reduction / Feature extraction",
+    "text": "Dimensionality reduction / Feature extraction\n\nPCA — orthogonal components maximizing variance.\nICA — source separation (EEG/fMRI).\nt-SNE / UMAP — nonlinear embeddings (visualization).\nAutoencoders — learned low-dim representations.\nFeature selection — Lasso, RFE, mutual information.\n\nUse-cases: reduce voxel/ROI features, compress IMU time-series features.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#anomaly-novelty-detection",
+    "href": "types-of-ml.html#anomaly-novelty-detection",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Anomaly / Novelty detection",
+    "text": "Anomaly / Novelty detection\n\nGaussian Mixtures — density modeling; low-probability = anomaly.\nOne-Class SVM — boundary around “normal”.\nIsolation Forest — isolates rare points via random splits.\nLocal Outlier Factor (LOF) — local density deviations.\n\nUse-cases: flag sensor glitches, unusual recovery trajectories, QC in pipelines.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#probabilistic-time-series",
+    "href": "types-of-ml.html#probabilistic-time-series",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Probabilistic & time-series",
+    "text": "Probabilistic & time-series\n\nHidden Markov Models (HMM) — discrete latent states for sequences (e.g., gait phases).\nGaussian Processes (GP) — Bayesian nonparametric regression/classification with uncertainty.\nBayesian Networks — causal/conditional dependencies among variables.\n\nUse-cases: session-to-session recovery trajectories, gait state decoding, uncertainty.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#ensembles",
+    "href": "types-of-ml.html#ensembles",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Ensembles",
+    "text": "Ensembles\nEnsemble methods\n\nBagging — reduces variance (e.g., Random Forest).\nBoosting — reduces bias with additive trees (e.g., XGBoost, LightGBM, CatBoost).\nStacking — meta-learner combining diverse base models.\n\nUse-cases: robust tabular prediction with mixed clinical + sensor features.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#optional-deep-learning",
+    "href": "types-of-ml.html#optional-deep-learning",
+    "title": "Types of Machine learning Algorithms",
+    "section": "(Optional) Deep learning",
+    "text": "(Optional) Deep learning\nNeural networks (when data are large / structured)\n\nMLP — general nonlinear function approximator for tabular + small signals.\nCNN — spatial/temporal patterns (images, spectrograms, kinematic grids).\nRNN/GRU/LSTM — sequence modeling (time-series).\nTransformers — state-of-the-art for sequences; scalable attention.\n\nUse-cases: MRI/US imaging, multi-sensor sequences, language notes (NLP).",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#choosing-a-model-fast-decision-guide",
+    "href": "types-of-ml.html#choosing-a-model-fast-decision-guide",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Choosing a model (fast decision guide)",
+    "text": "Choosing a model (fast decision guide)\n\nSmall/medium tabular data: start with Logistic/Linear, Random Forest, Gradient Boosting.\n\nHigh-dimensional & few samples: try Lasso/Elastic Net, SVM, RF (use strong CV).\n\nUnlabeled exploration: PCA/UMAP + clustering (DBSCAN/GMM).\n\nTime-series / stateful: HMM, RNN/Transformer (if data are sufficient).\n\nNeed calibrated probabilities: Logistic Regression, CalibratedClassifierCV.\n\n\n\n\n\n\n\nWarning\n\n\n\nValidation matters more than model choice.\nUse stratified/nested CV, GroupKFold for repeated patients, temporal splits for prognosis, and check calibration + subgroup fairness.",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#key-sklearn-entry-points",
+    "href": "types-of-ml.html#key-sklearn-entry-points",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Key sklearn entry points",
+    "text": "Key sklearn entry points\n\nLinearRegression, Ridge, Lasso, ElasticNet, PoissonRegressor\n\nLogisticRegression, SVC/SVR, KNeighbors*, GaussianNB\n\nDecisionTree*, RandomForest*, GradientBoosting*\n\nKMeans, AgglomerativeClustering, DBSCAN, GaussianMixture\n\nPCA, TruncatedSVD, FactorAnalysis, SelectKBest, RFE\n\nOneClassSVM, IsolationForest, LocalOutlierFactor\n\nPipelines & Validation: Pipeline, ColumnTransformer, StratifiedKFold, GroupKFold, GridSearchCV, CalibratedClassifierCV",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "types-of-ml.html#further-reading",
+    "href": "types-of-ml.html#further-reading",
+    "title": "Types of Machine learning Algorithms",
+    "section": "Further reading",
+    "text": "Further reading\n\nscikit-learn User Guide (models, pipelines, model evaluation)\n\nElements of Statistical Learning (Hastie, Tibshirani, Friedman)\n\nInterpretable ML (Molnar) — SHAP, partial dependence, global vs local explanations",
+    "crumbs": [
+      "What is machine learning?",
+      "Types of Machine learning Algorithms"
+    ]
+  },
+  {
+    "objectID": "ml-overview.html",
+    "href": "ml-overview.html",
+    "title": "What is machine learning?",
+    "section": "",
+    "text": "Machine learning and classical statistics look at different questions on different levels (group, individual) and use different methods.",
+    "crumbs": [
+      "What is machine learning?",
+      "What is machine learning?"
+    ]
+  },
+  {
+    "objectID": "ml-overview.html#different-types-of-machine-learning",
+    "href": "ml-overview.html#different-types-of-machine-learning",
+    "title": "What is machine learning?",
+    "section": "Different types of machine learning",
+    "text": "Different types of machine learning\n\n\n\n\n\n\n\nSupervised Machine Learning\nUnsupervised Machine Learning\n\n\n\n\nInput: X, Y  Output: Patterns or associations between X and Y  Examples:  - Regression of body weight (Y) onto age (X)  - Classification of bird species (Y) based on body weight (X)\nInput: Y  Output: Patterns derived from Y following a set of rules  Example:  - Subgroups within bird species based on characteristics of the beak (Y)\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nRule of thumb: start simple (linear/logistic, trees), validate rigorously, then consider more complex models if they add clear value.",
+    "crumbs": [
+      "What is machine learning?",
+      "What is machine learning?"
+    ]
+  },
+  {
+    "objectID": "ml-overview.html#concepts-in-machine-learning",
+    "href": "ml-overview.html#concepts-in-machine-learning",
+    "title": "What is machine learning?",
+    "section": "Concepts in Machine learning",
+    "text": "Concepts in Machine learning\n\nCross-validation\n\nCross-validation is a technique used to evaluate how well a machine learning model generalizes to new, unseen data.\nThe data is split into several parts (called folds). The model is trained on some folds and tested on the remaining one — this process is repeated so that every fold serves once as a test set.\nThe average performance across all folds gives a more reliable estimate of the model’s accuracy or error than a single train–test split.\nIn short: train multiple times, test multiple times, average the results → estimate generalization.\n\n\n\n\nGrid search\n\nGrid search is a method used to find the best set of hyperparameters for a machine learning model.\nIt systematically tries all possible combinations of parameter values from a predefined “grid,” trains a model for each combination (often using cross-validation), and compares their performance.\nThe combination that gives the best validation score is selected as the optimal set of parameters.\nIn short: try many parameter combinations → evaluate → keep the best one.\n\n\n\nLoss function\n\nA loss function measures how far a model’s predictions are from the true values — it’s what the model tries to minimize during training.\nWhile grid search optimizes hyperparameters (external settings like learning rate or regularization strength), the loss function guides the optimization of the model parameters themselves (e.g., weights and intercepts).\nIn short: the loss function teaches the model, whereas grid search tunes how the model learns.",
+    "crumbs": [
+      "What is machine learning?",
+      "What is machine learning?"
+    ]
+  },
+  {
+    "objectID": "ml-overview.html#optimizer",
+    "href": "ml-overview.html#optimizer",
+    "title": "What is machine learning?",
+    "section": "Optimizer",
+    "text": "Optimizer\n\nAn optimizer is the algorithm that automatically adjusts the model’s parameters (like weights and intercepts) to minimize the loss function.\nIt’s how the model learns from data.\nAt every step, the optimizer looks at how changing each parameter would affect the loss, and then moves them in the direction that reduces the loss the most.\n\nExamples of optimizers\n\nGradient Descent — the basic algorithm that updates parameters step by step in the direction of the steepest decrease of loss.\nStochastic Gradient Descent (SGD) — updates using small random batches of data (faster for big datasets).\nAdam, RMSProp, Adagrad — advanced optimizers that adapt learning rates automatically for each parameter.\n\nKernels methods\n\nIn algorithms like Support Vector Machines (SVMs), a kernel is a function that computes similarity or inner products between data points in a higher-dimensional space without explicitly transforming the data there. This is called the “kernel trick.”\nWhy this matters: Some datasets aren’t separable by a straight line in their original space, but become separable when projected into higher dimensions. Kernels let you work in these higher dimensions efficiently.\n\nExercise:\nUse the data in\nUse the LinearRegression algorithm from sklearn to fit a linear regression using 5-fold cross validation.\nSpecifically, use\n- LinearRegression.fit() to fit the linear regression\n- LinearRegression.predict() to make predictions \n- Calculate the Mean Absolute Error (MAE) per fold and save it. This can be done by contrasting the predicted values against the oberved values.\n- Calculate the average MAE and the models parameters",
+    "crumbs": [
+      "What is machine learning?",
+      "What is machine learning?"
+    ]
+  }
+]
