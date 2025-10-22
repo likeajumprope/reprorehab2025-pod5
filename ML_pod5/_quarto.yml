@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Machine learning from scratch"
+  sidebar:
+    style: docked
+    contents:
+      - text: "Introduction"
+        href: introduction.qmd
+      - section: "Set-up"
+        contents:
+          - setup.qmd
+          - basic-jupyter.qmd
+          - task_setup.qmd
+      - section: "What is machine learning?"
+        contents:
+          - ml-overview.qmd
+          - types-of-ml.qmd
+      
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

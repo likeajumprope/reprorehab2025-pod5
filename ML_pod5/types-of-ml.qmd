@@ -1,0 +1,138 @@
+---
+title: Types of Machine learning Algorithms
+---
+
+## Supervised learning
+
+### Regression (predict continuous outcomes)
+
+**Use when:** target is numeric (e.g., gait speed, length of stay, brain-age delta).
+
+- **Linear Regression** — baseline linear fit; fast, interpretable.  
+- **Ridge (L2)** — shrinks coefficients; helps multicollinearity.  
+- **Lasso (L1)** — feature selection via sparsity.  
+- **Elastic Net** — hybrid of L1/L2; robust when features are correlated.  
+- **Generalized Linear Models (GLM)** — non-Gaussian outcomes (Poisson, Gamma).  
+- **Support Vector Regression (SVR)** — robust, kernelized nonlinearity.  
+- **Tree Ensembles (RF/GBM)** — capture nonlinearity & interactions.  
+
+*Use-cases:* predict 6MWT, therapy hours, WMH volume change, LOS.
+
+
+### Classification (predict categories)
+**Use when:** target is categorical (e.g., fall/no-fall, discharge home vs facility).
+
+- **Logistic Regression** — strong baseline, well-calibrated.
+- **Naive Bayes** — simple probabilistic baseline (text, high-dim data).
+- **k-Nearest Neighbors (kNN)** — instance-based, local decision boundaries.
+- **Decision Trees / Random Forests** — interpretable (trees) / strong default (RF).
+- **Gradient Boosted Trees** — XGBoost / LightGBM / CatBoost; top tabular performers.
+- **Support Vector Machines (SVM)** — good in high-dimensional settings.
+
+*Use-cases*: classify stroke discharge, fall risk from IMU, diagnosis subtypes.
+
+
+---
+
+## Unsupervised learning
+
+### Clustering (find structure in unlabeled data)
+- **k-Means** — spherical clusters; fast; needs `k`.
+- **Hierarchical clustering** — dendrogram; no fixed `k`.
+- **DBSCAN** — density-based; finds arbitrary shapes; flags noise.
+- **Gaussian Mixture Models (GMM)** — soft assignments; probabilistic.
+
+*Use-cases*: patient subtyping, gait pattern families, sensor-based phenotypes.
+
+##  Dimensionality reduction / Feature extraction
+- **PCA** — orthogonal components maximizing variance.
+- **ICA** — source separation (EEG/fMRI).
+- **t-SNE / UMAP** — nonlinear embeddings (visualization).
+- **Autoencoders** — learned low-dim representations.
+- **Feature selection** — Lasso, RFE, mutual information.
+
+*Use-cases*: reduce voxel/ROI features, compress IMU time-series features.
+
+---
+
+## Anomaly / Novelty detection
+
+
+- **Gaussian Mixtures** — density modeling; low-probability = anomaly.
+- **One-Class SVM** — boundary around “normal”.
+- **Isolation Forest** — isolates rare points via random splits.
+- **Local Outlier Factor (LOF)** — local density deviations.
+
+*Use-cases*: flag sensor glitches, unusual recovery trajectories, QC in pipelines.
+
+
+---
+
+## Probabilistic & time-series
+
+- **Hidden Markov Models (HMM)** — discrete latent states for sequences (e.g., gait phases).
+- **Gaussian Processes (GP)** — Bayesian nonparametric regression/classification with uncertainty.
+- **Bayesian Networks** — causal/conditional dependencies among variables.
+
+*Use-cases*: session-to-session recovery trajectories, gait state decoding, uncertainty.
+
+
+---
+
+## Ensembles
+
+ Ensemble methods
+
+- **Bagging** — reduces variance (e.g., **Random Forest**).
+- **Boosting** — reduces bias with additive trees (e.g., **XGBoost**, **LightGBM**, **CatBoost**).
+- **Stacking** — meta-learner combining diverse base models.
+
+*Use-cases*: robust tabular prediction with mixed clinical + sensor features.
+
+
+---
+
+## (Optional) Deep learning
+
+ Neural networks (when data are large / structured)
+
+- **MLP** — general nonlinear function approximator for tabular + small signals.
+- **CNN** — spatial/temporal patterns (images, spectrograms, kinematic grids).
+- **RNN/GRU/LSTM** — sequence modeling (time-series).
+- **Transformers** — state-of-the-art for sequences; scalable attention.
+
+*Use-cases*: MRI/US imaging, multi-sensor sequences, language notes (NLP).
+
+
+---
+
+## Choosing a model (fast decision guide)
+
+- **Small/medium tabular data:** start with **Logistic/Linear**, **Random Forest**, **Gradient Boosting**.  
+- **High-dimensional & few samples:** try **Lasso/Elastic Net**, **SVM**, **RF** (use strong CV).  
+- **Unlabeled exploration:** **PCA/UMAP + clustering** (DBSCAN/GMM).  
+- **Time-series / stateful:** **HMM**, **RNN/Transformer** (if data are sufficient).  
+- **Need calibrated probabilities:** **Logistic Regression**, **CalibratedClassifierCV**.
+
+::: callout-warning
+**Validation matters more than model choice.**  
+Use stratified/nested CV, **GroupKFold** for repeated patients, temporal splits for prognosis, and check **calibration** + **subgroup fairness**.
+:::
+
+## Key sklearn entry points
+
+- `LinearRegression`, `Ridge`, `Lasso`, `ElasticNet`, `PoissonRegressor`  
+- `LogisticRegression`, `SVC/SVR`, `KNeighbors*`, `GaussianNB`  
+- `DecisionTree*`, `RandomForest*`, `GradientBoosting*`  
+- `KMeans`, `AgglomerativeClustering`, `DBSCAN`, `GaussianMixture`  
+- `PCA`, `TruncatedSVD`, `FactorAnalysis`, `SelectKBest`, `RFE`  
+- `OneClassSVM`, `IsolationForest`, `LocalOutlierFactor`  
+- Pipelines & Validation: `Pipeline`, `ColumnTransformer`, `StratifiedKFold`, `GroupKFold`, `GridSearchCV`, `CalibratedClassifierCV`
+
+---
+
+## Further reading
+
+- **scikit-learn User Guide** (models, pipelines, model evaluation)  
+- **Elements of Statistical Learning** (Hastie, Tibshirani, Friedman)  
+- **Interpretable ML** (Molnar) — SHAP, partial dependence, global vs local explanations

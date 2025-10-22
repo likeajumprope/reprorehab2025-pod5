@@ -1,0 +1,51 @@
+---
+title: "Jupyter Notebooks in Google Colab"
+---
+
+Alternatively, if you want to use Python **without worrying about installing libraries or managing dependencies**, you can use **Jupyter notebooks** and run them directly in **Google Colab** — a free, cloud-based platform provided by Google.
+
+---
+
+## 1. What is Google Colab?
+
+Google Colab (short for *Collaboratory*) is a cloud service that lets you run Jupyter notebooks in your browser,   with no local setup required.
+
+**Key advantages:**
+- No need to install Python or libraries.
+- Access to free GPUs and TPUs for computation.
+- Direct integration with Google Drive for storage.
+- Same syntax and workflow as local Jupyter notebooks (`.ipynb` files).
+
+You can think of it as “Jupyter Notebook in the cloud.”
+
+---
+
+## 2. How to open a notebook in Colab
+
+### Option A – Start from scratch
+
+1. Go to [https://colab.research.google.com](https://colab.research.google.com)  
+2. Choose **File → New notebook**.  
+3. A notebook with a Python 3 runtime will open in your browser.  
+4. You can rename it and save it to your Google Drive.
+
+### Option B – Open an existing notebook
+
+If you already have a `.ipynb` file:
+
+1. Upload it to Google Drive.  
+2. Right-click → **Open with → Google Colaboratory**.  
+   (If Colab isn’t listed, choose *Connect more apps* → search for *Colaboratory*.)  
+3. Alternatively, you can drag-and-drop a notebook directly into an open Colab window.
+
+---
+
+## 3. Installing additional libraries
+
+Colab comes pre-installed with most scientific packages (NumPy, pandas, matplotlib, scikit-learn, PyTorch, TensorFlow, etc.).  
+
+To install any additional packages, use `pip` directly in a cell:
+
+```python
+!pip install seaborn xgboost shap
+```

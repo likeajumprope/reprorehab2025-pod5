@@ -1,0 +1,80 @@
+---
+title: "Task: Setting up VS Code for Python"
+---
+
+## Objective
+
+Set up and test your Python development environment in **VS Code** using a virtual environment.
+
+---
+
+## Step-by-step instructions
+
+### 1. **Check your Python installation**  
+   Open your terminal and verify that Python is installed:
+   ```bash
+   python3 --version
+   ```
+
+### 2.	**Install VS Code extensions**
+Open VS Code and install the following:
+	•	Python extension
+	•	Jupyter extension
+
+### 3.	**Create and activate a virtual environment**
+
+In the terminal (inside your project folder), run:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate       # macOS/Linux
+```
+OR
+```bash
+.\.venv\Scripts\Activate.ps1    # Windows
+```
+Then install a few essential packages:
+```bash
+pip install jupyter numpy scikit-learn matplotlib pandas
+```
+
+### 4.	**Test Python and NumPy in the terminal**
+
+Launch Python from within your activated environment and check:
+
+```bash
+import numpy as np
+print(np.__version__)
+```
+
+### 5.	**Test in VS Code using a Python script**
+	•	Create a new file called test.py
+	•	Add the following code:
+
+```bash
+import numpy as np
+print("NumPy works!", np.__version__)
+```
+
+### 6.	**Test in a Jupyter Notebook**
+	•	Create a new notebook named test.ipynb
+	•	In the first cell, add:
+
+```bash
+import numpy as np
+np.random.rand(3)
+```
+•	Run the cell and confirm it executes successfully.
+
+### 7. 	**(Optional) Try running in Google Colab**
+Upload your test.ipynb to Google Colab.
+In the first cell, install NumPy and run:
+
+```bash
+!pip install numpy
+import numpy as np
+print("NumPy works in Colab!", np.__version__)
+```
+
+
+

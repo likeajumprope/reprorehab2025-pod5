@@ -1,0 +1,111 @@
+---
+title: "Using Python Virtual Environments (venv) in VS Code"
+---
+
+
+## Overview
+
+A **virtual environment** (venv) isolates a project's Python packages so different projects can use different versions without conflicts. This guide shows how 
+
+- to create a venv, 
+- install packages, 
+- and configure **VS Code** to use it on macOS/Linux and Windows.
+
+
+## Why environments matter in Python
+
+::: callout-tip
+**Environments keep your work reproducible, conflict-free, and safe.**
+:::
+
+Python installs packages globally by default. Over time, this can create *dependency conflicts*—for example:
+
+- Project A needs **NumPy 1.22**, while Project B needs **NumPy 2.0**.  
+- Installing new libraries for one project breaks another.  
+- Reproducing your setup on another computer (or on a cluster) becomes difficult.
+
+A **virtual environment** solves this by giving each project its **own isolated package space**:
+
+- You can install, upgrade, or remove packages without affecting other projects.  
+- Your `requirements.txt` or `environment.yml` fully defines what’s needed.  
+- Colleagues (or future you) can recreate the same environment anywhere.  
+
+Think of it as a *sandboxed workspace* for each project.
+
+::: callout-tip
+**When to use venv vs conda?**  
+If you don’t need compiled scientific stacks managed by conda, `venv + pip` is lightweight and portable. You can always switch to conda later if needed.
+:::
+
+## Prerequisites
+
+- Python 3.10+ (latest version is 3.13) installed and available on your PATH (`python --version`).
+- VS Code with the **Python** and **Jupyter** extensions.
+- Basic terminal (macOS/Linux) or PowerShell (Windows) access.
+
+## 1. Create a virtual environment
+
+### macOS / Linux
+
+```bash
+# in your project folder
+python -m venv .venv
+
+# activate it
+source .venv/bin/activate
+# your prompt should show (.venv)
+```
+
+### Windows powershell:
+
+```bash
+# in your project folder
+python -m venv .venv
+
+# activate it
+.\.venv\Scripts\Activate.ps1
+# your prompt should show (.venv)
+```
+
+You should be able to see a folder .venv in your project folder.
+
+::: callout-note
+The folder name .venv is conventional and recognized by VS Code automatically if it lives in the project root.
+:::
+
+## 2. Install your project packages
+
+With the environment activated, install what you need in the terminal. The main installer in python is `pip`, while other, newer (better) options do exist (uv, conda).
+
+```bash
+pip install numpy pandas matplotlib scikit-learn jupyter
+```
+
+## 3. Open the project in VS Code
+
+- File → Open Folder… and select your project folder (the one containing .venv).
+- VS Code usually detects the environment. If not, select it manually (next section).
+
+## 4. Select the interpreter in VS Code
+	1 Press ⌘⇧P / Ctrl+Shift+P → Python: Select Interpreter
+	2.	Choose your environment path:
+
+```bash
+./.venv/bin/python           # macOS/Linux
+.\.venv\Scripts\python.exe   # Windows
+```
+
+## 5. Jupyter & notebooks (optional)
+
+When you create or open a notebook (.ipynb), click the kernel picker (top-right) and select your .venv interpreter. Select your .venv interpreter
+
+## 6 Test your environment.
+
+1. Activate your environment in your terminal. Install the numpy package
+
+```pip install numpy```
+
+2. Create a file test.py. Import the numpy package
+
+``` import numpy as np```
+
