@@ -88,7 +88,8 @@ Examples of optimizers
 - Adam, RMSProp, Adagrad — advanced optimizers that adapt learning rates automatically for each parameter.
 
 
-Kernels methods
+
+<!-- Kernels methods
 
 - In algorithms like Support Vector Machines (SVMs), a kernel is a function that computes similarity or inner products between data points in a higher-dimensional space without explicitly transforming the data there. This is called the "kernel trick."
 
@@ -107,7 +108,7 @@ Specifically, use
     - LinearRegression.predict() to make predictions 
     - Calculate the Mean Absolute Error (MAE) per fold and save it. This can be done by contrasting the predicted values against the oberved values.
     - Calculate the average MAE and the models parameters
-
+ -->
 
 
 

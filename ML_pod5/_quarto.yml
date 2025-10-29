@@ -17,7 +17,7 @@ website:
       - section: "What is machine learning?"
         contents:
           - ml-overview.qmd
-          - types-of-ml.qmd
+          - Regression_from_scratch.qmd
       
 
 format:
