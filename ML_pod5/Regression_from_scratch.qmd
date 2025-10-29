@@ -21,7 +21,10 @@ title: "Regression from scratch"
 
 The mathematical structure or function family that maps inputs to outputs (supervised learning). The model defines what forms of relationships between input and output can be learned.
 
+
 ### For linear regression:
+
+![](imgs/linear_regression_fit.png)
 
 #### 1. Scalar form
 Each observation \(i\) has its own equation:
@@ -439,25 +442,39 @@ Finally, we have to select a random set of starting parameters.
 
 We are now ready to write the full algorithm.
 
-1. Start with a new data set:
+1. Start with a new data set, for example age and cortical thickness,  generated from this code:
 
+```{python}
+import numpy as np
+n = 100
+age = np.linspace(0, 1, n)  # age, standardized
 
-
-
+# Generate target: cortical thickness (in mm)
+# slightly decreasing with age + noise
+thickness = 2.8 - 0.008 * age + np.random.normal(0, 0.05, n)
 
 ```
+2. Initialize your weights, w and b, each at starting point `0.0`
+
+3. Fit b and w, with a learning rate of 1e-2 and 1000 iterations using python.
+
+
+::: {.callout-tip title="Solution Regression" collapse="true"}
+
+```{python}
 import numpy as np
+import matplotlib.pyplot as plt
 
 # Training data
-X = np.array([2, 4, 6])        # input feature (age, for example)
-y = np.array([3.0, 5.0, 8.0])  # target (e.g., cortical thickness)
+X = age      # input feature (age, for example)
+y = thickness  # target (e.g., cortical thickness)
 n = len(X)
 
 # Initialize parameters
 w = 0.0
 b = 0.0
-eta = 0.01       # learning rate
-epochs = 1000    # number of iterations
+eta = 1e-2       # learning rate
+epochs = 2000    # number of iterations
 
 # Gradient descent loop
 for epoch in range(epochs):
@@ -476,4 +493,20 @@ for epoch in range(epochs):
 
 # Final weights
 print(f"Final weights: w={w:.3f}, b={b:.3f}")
+
+
+plt.figure(figsize=(7,5))
+plt.scatter(age, thickness, color="black", label="Data (observed)", alpha=0.7)
+plt.plot(age, b + w * age, color="red", linewidth=2, label="Fitted regression line")
+plt.xlabel("Age (years)")
+plt.ylabel("Cortical thickness (mm)")
+plt.title("Linear Regression Fit via Gradient Descent")
+plt.legend()
+plt.grid(True, linestyle="--", alpha=0.6)
+plt.savefig("imgs/linear_regression_fit.png", dpi=300, bbox_inches="tight")
+plt.show()
+
 ```
+
+
+:::
