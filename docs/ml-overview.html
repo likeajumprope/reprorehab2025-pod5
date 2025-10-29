@@ -157,8 +157,8 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./types-of-ml.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Types of Machine learning Algorithms</span></a>
+  <a href="./Regression_from_scratch.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Regression from scratch</span></a>
   </div>
 </li>
       </ul>
@@ -370,19 +370,26 @@ Tip
 <li>Stochastic Gradient Descent (SGD) — updates using small random batches of data (faster for big datasets).</li>
 <li>Adam, RMSProp, Adagrad — advanced optimizers that adapt learning rates automatically for each parameter.</li>
 </ul>
-<p>Kernels methods</p>
-<ul>
-<li><p>In algorithms like Support Vector Machines (SVMs), a kernel is a function that computes similarity or inner products between data points in a higher-dimensional space without explicitly transforming the data there. This is called the “kernel trick.”</p></li>
-<li><p>Why this matters: Some datasets aren’t separable by a straight line in their original space, but become separable when projected into higher dimensions. Kernels let you work in these higher dimensions efficiently.</p></li>
-</ul>
-<p>Exercise:</p>
-<p>Use the data in</p>
-<p>Use the LinearRegression algorithm from sklearn to fit a linear regression using 5-fold cross validation.</p>
-<p>Specifically, use</p>
-<pre><code>- LinearRegression.fit() to fit the linear regression
-- LinearRegression.predict() to make predictions 
-- Calculate the Mean Absolute Error (MAE) per fold and save it. This can be done by contrasting the predicted values against the oberved values.
-- Calculate the average MAE and the models parameters</code></pre>
+<!-- Kernels methods
+
+- In algorithms like Support Vector Machines (SVMs), a kernel is a function that computes similarity or inner products between data points in a higher-dimensional space without explicitly transforming the data there. This is called the "kernel trick."
+
+- Why this matters: Some datasets aren't separable by a straight line in their original space, but become separable when projected into higher dimensions. Kernels let you work in these higher dimensions efficiently.
+
+
+Exercise:
+
+Use the data in 
+
+Use the LinearRegression algorithm from sklearn to fit a linear regression using 5-fold cross validation.
+
+Specifically, use
+
+    - LinearRegression.fit() to fit the linear regression
+    - LinearRegression.predict() to make predictions 
+    - Calculate the Mean Absolute Error (MAE) per fold and save it. This can be done by contrasting the predicted values against the oberved values.
+    - Calculate the average MAE and the models parameters
+ -->
 
 
 </section>
