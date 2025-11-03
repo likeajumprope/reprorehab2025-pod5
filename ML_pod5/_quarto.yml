@@ -18,6 +18,7 @@ website:
         contents:
           - ml-overview.qmd
           - Regression_from_scratch.qmd
+          - Clustering_from_scratch.qmd
       
 
 format:

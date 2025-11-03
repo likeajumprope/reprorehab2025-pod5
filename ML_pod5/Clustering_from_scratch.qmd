@@ -1,0 +1,334 @@
+---
+title: Clustering from scratch
+---
+
+The aim of k-means clustering is to group a set of data points into k distinct clusters based on their similarity, such that:
+
+- Each cluster has a “center” (called the centroid), which is the average of the data points in that cluster.
+- Data points are assigned to the cluster with the nearest centroid, so items in the same cluster are more similar to each other than to items in other clusters.
+
+
+```{python}
+import numpy as np
+from sklearn.datasets import make_blobs
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from sklearn.cluster import k_means
+import matplotlib.pyplot as plt
+```
+
+1. Let's generate some data:
+
+```{python}
+centers = [[1, 1], [-1, -1], [1, -1]]
+data, labels_true = make_blobs(
+    n_samples=750, centers=centers, cluster_std=0.4, random_state=0
+)
+
+data = StandardScaler().fit_transform(data) # make sure we have clusters that are of roughly equal size 
+
+print(data) 
+data.shape
+```
+
+2. Let's make a simple plot of the data:
+
+```{python}
+fig,ax = plt.subplots()
+ax.scatter(data[:,0], data[:,1])
+plt.show()
+```
+
+The plots clearly shows 3 clusters. Our aim is to identify these three clusters from the image.
+
+### K - means clustering explained
+
+1.	Initialize cluster centroids.
+Pick k starting points (“centroids”), usually randomly. These are the initial guesses for the centers of your clusters.
+
+2. Assign points to the nearest centroid
+For each data point, calculate the distance to each centroid (e.g., using Euclidean distance) and assign the point to the closest one.
+
+3. Update the centroids
+Once points are grouped, recalculate the centroid of each cluster — this becomes the new center (mean position) of the cluster.
+
+4.	Repeat steps 3 and 4
+Continue assigning points and updating centroids until:
+	•	The assignments don’t change anymore (algorithm has converged), or
+	•	You reach a maximum number of iterations.
+
+### Task: Drawing random centroids
+
+1. Copy the code from above to create the data. Recreate the plot.
+
+2. Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column 1, the corresponding y coordinates are in column 2.
+
+3. Draw three random points from the data to initialize the centroids (you can use the `random` package). Plot them into the plot in red.
+
+```{python}
+import random
+
+# Select 3 random rows from data
+indices = random.sample(range(0, 749), 3) #draw 3 random points within range 750
+centroids = data[indices, :] # select those points from the data
+print(centroids)
+
+
+# add to plot
+
+fig,ax = plt.subplots()
+ax.scatter(data[:,0], data[:,1])
+ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=100, marker='X', label='Centroids')
+plt.show()
+```
+
+
+## Assigning points to the nearest centroids.
+
+Now that we have our initial guesses for the centroids, we can go to step 2. 
+
+We will run this step in a two nested loops. The aim of this step is to assign each point from `data` to the nearest cluster centoid. 
+
+The first loop runs trough the rows of `data`, takes one row each. In a second, inner loop, we cacluate the distance from the three centroids.
+
+### Euclidean distance between two points
+But first we need a measure to evaluate the distance between two data points.
+
+We use the euclidean distance betwen two vectors $\mathbf{x}, \mathbf{y}$:
+
+$$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$$
+
+### Task
+
+Write a function that calculates the euclidean distance between two data points (which are defined by an x and a y coordinate). Run the function to calculate the euclidean distance between the first row of `data` and the first row in `centroids`
+
+```{python}
+def calculate_euclidean_distance(point1, point2):
+    return np.sqrt(np.sum((point1 - point2) ** 2))
+
+calculate_euclidean_distance(data[0], centroids[0])
+
+```
+
+### Inner loop
+
+Write a loop to compare the first row of `data` to all three rows of `centroids`. Compare the outcomes. Save which centroid is the closest.
+
+```{python}
+results =[]
+for i, entry in enumerate(centroids):
+    distance = calculate_euclidean_distance(data[0], entry)
+    results.append(distance)
+
+closest_index = np.argmin(results)
+
+print(closest_index)
+   
+```
+
+#### Outer loop
+
+Now put this loop into an outer loop, iterating over data.
+
+```{python}
+
+closest_index = []
+
+for j, row in enumerate(data):
+    results = []
+    for i, entry in enumerate(centroids):
+        distance = calculate_euclidean_distance(row, entry)
+        results.append(distance)
+
+    # Append the index of the centroid closest to this data point
+    closest_index.append(np.argmin(results))
+
+print(closest_index)
+   
+```
+
+### Assigning the points.
+
+Now that we have all the nearest clusters, plot the points this way.
+
+```{python}
+fig,ax = plt.subplots()
+scatter = ax.scatter(data[:, 0], data[:, 1], c=closest_index, cmap='viridis', alpha=0.7)
+ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=100, marker='X', label='Centroids')
+plt.savefig("imgs/cluster_assignment.png")
+plt.show()
+```
+
+### Step 4: calculate new mean per cluster
+
+First, we add the vector containing the assigment to the cluster to the data frame.
+
+Then we caclculate the new means of those clusters.
+```{python}
+data = np.column_stack((data, closest_index)) # add closest_index as column
+```
+
+```{python}
+# Calculate the new_centroids
+
+k = 3  # Number of clusters
+new_centroids =[]
+for i in range(k):
+    #print(i)
+    # Mask data belonging to cluster i
+    cluster_points = data[data[:,2]==float(i)]
+    centroid = cluster_points[:, :2].mean(axis=0)
+    # Compute mean of these points
+    new_centroids.append(centroid)
+print(new_centroids)
+```
+
+# Plot the new centroids
+
+```{python}
+new_centroids = np.array(new_centroids)  # Convert list to (k, 2) NumPy array
+
+fig, ax = plt.subplots()
+scatter = ax.scatter(data[:, 0], data[:, 1], c=closest_index, cmap='viridis', alpha=0.7)
+
+# Now this works
+ax.scatter(new_centroids[:, 0], new_centroids[:, 1], color='red', s=100, marker='X', label='Centroids')
+
+plt.savefig("imgs/cluster_assignment2.png")
+plt.show()
+```
+
+## Reassign the points.
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+
+# --- Settings ---
+k = 3
+max_iters = 1000
+
+# --- Use only x,y coordinates (keep it simple) ---
+X = data[:, :2]  # if data has 2 cols already, this is identical
+n = X.shape[0]
+
+# --- 1) Initialize centroids by sampling rows from data ---
+indices = random.sample(range(n), k)
+centroids = X[indices, :].copy()
+
+# --- Distance function (your version) ---
+def calculate_euclidean_distance(point1, point2):
+    return np.sqrt(np.sum((point1 - point2) ** 2))
+
+# --- 2) Iterate: assign -> update ---
+for it in range(max_iters):
+    # Assign each point to nearest centroid (your nested-loop style)
+    closest_index = []
+    for j, row in enumerate(X):
+        results = []
+        for i, entry in enumerate(centroids):
+            distance = calculate_euclidean_distance(row, entry)
+            results.append(distance)
+        closest_index.append(int(np.argmin(results)))
+    closest_index = np.array(closest_index, dtype=int)
+
+    # Update centroids: mean of points in each cluster (first two columns only)
+    new_centroids = []
+    for i in range(k):
+        cluster_points = X[closest_index == i]
+        if cluster_points.size > 0:
+            centroid = cluster_points.mean(axis=0)
+        else:
+            # keep it simple: reinit empty cluster to a random data point
+            centroid = X[random.randrange(n)]
+        new_centroids.append(centroid)
+    new_centroids = np.array(new_centroids)
+
+    # Stop if nothing changes
+    if np.allclose(new_centroids, centroids):
+        break
+    centroids = new_centroids
+
+print(f"Finished after {it+1} iteration(s).")
+print("Centroids:\n", centroids)
+
+# --- Plot final assignment ---
+fig, ax = plt.subplots()
+scatter = ax.scatter(X[:, 0], X[:, 1], c=closest_index, cmap='viridis', alpha=0.7)
+ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=120, marker='X', label='Centroids')
+ax.set_title("K-means clustering (simple)")
+ax.legend()
+plt.colorbar(scatter, ax=ax, label="Centroid index")
+plt.show()
+```
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+import random
+
+# --- Settings ---
+k = 3
+max_iters = 10  # Keep small for teaching/demo purposes
+
+# --- Use only x,y coordinates (keep it simple) ---
+X = data[:, :2]  # if data has 2 cols already, this is identical
+n = X.shape[0]
+
+# --- 1) Initialize centroids by sampling rows from data ---
+indices = random.sample(range(n), k)
+centroids = X[indices, :].copy()
+
+# --- Distance function (your version) ---
+def calculate_euclidean_distance(point1, point2):
+    return np.sqrt(np.sum((point1 - point2) ** 2))
+
+# Plot helper
+def plot_clusters(X, labels, centroids, i):
+    fig, ax = plt.subplots()
+    scatter = ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis', alpha=0.7)
+    ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=120, marker='X', label='Centroids')
+    ax.set_title(f"K-means: iteration {i+1}")
+    ax.legend()
+    plt.colorbar(scatter, ax=ax, label="Centroid index")
+    plt.show()
+
+# --- 2) Iterate: assign -> update -> plot ---
+for it in range(max_iters):
+    # Assign each point to nearest centroid (your nested-loop style)
+    closest_index = []
+    for j, row in enumerate(X):
+        distances = [calculate_euclidean_distance(row, c) for c in centroids]
+        closest_index.append(int(np.argmin(distances)))
+    closest_index = np.array(closest_index, dtype=int)
+
+    # Plot current state
+    plot_clusters(X, closest_index, centroids, it)
+
+    # Update centroids
+    new_centroids = []
+    for i in range(k):
+        cluster_points = X[closest_index == i]
+        if cluster_points.size > 0:
+            centroid = cluster_points.mean(axis=0)
+        else:
+            # reinit empty cluster to a random point
+            centroid = X[random.randrange(n)]
+        new_centroids.append(centroid)
+    new_centroids = np.array(new_centroids)
+
+    # Stop if nothing changes
+    if np.allclose(new_centroids, centroids):
+        print(f"Converged after {it+1} iteration(s).")
+        break
+
+    centroids = new_centroids
+
+print(f"Finished after {it+1} iteration(s).")
+print("Final centroids:\n", centroids)
+```
+
+### Evaluation metrics
+
