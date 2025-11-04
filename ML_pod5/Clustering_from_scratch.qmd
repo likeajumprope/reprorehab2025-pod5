@@ -57,6 +57,8 @@ Continue assigning points and updating centroids until:
 	•	The assignments don’t change anymore (algorithm has converged), or
 	•	You reach a maximum number of iterations.
 
+### 1 Initialize cluster centroids
+
 ### Task: Drawing random centroids
 
 1. Copy the code from above to create the data. Recreate the plot.
@@ -64,6 +66,8 @@ Continue assigning points and updating centroids until:
 2. Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column 1, the corresponding y coordinates are in column 2.
 
 3. Draw three random points from the data to initialize the centroids (you can use the `random` package). Plot them into the plot in red.
+
+::: {.callout-tip title="Solution" collapse="true"}
 
 ```{python}
 import random
@@ -81,9 +85,9 @@ ax.scatter(data[:,0], data[:,1])
 ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=100, marker='X', label='Centroids')
 plt.show()
 ```
+:::
 
-
-## Assigning points to the nearest centroids.
+## 2. Assigning points to the nearest centroids.
 
 Now that we have our initial guesses for the centroids, we can go to step 2. 
 
@@ -98,10 +102,11 @@ We use the euclidean distance betwen two vectors $\mathbf{x}, \mathbf{y}$:
 
 $$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$$
 
-### Task
+### Task: Euclidean distance
 
 Write a function that calculates the euclidean distance between two data points (which are defined by an x and a y coordinate). Run the function to calculate the euclidean distance between the first row of `data` and the first row in `centroids`
 
+::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
 def calculate_euclidean_distance(point1, point2):
     return np.sqrt(np.sum((point1 - point2) ** 2))
@@ -109,11 +114,13 @@ def calculate_euclidean_distance(point1, point2):
 calculate_euclidean_distance(data[0], centroids[0])
 
 ```
+:::
 
-### Inner loop
+### Task Inner loop
 
 Write a loop to compare the first row of `data` to all three rows of `centroids`. Compare the outcomes. Save which centroid is the closest.
 
+::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
 results =[]
 for i, entry in enumerate(centroids):
@@ -125,11 +132,13 @@ closest_index = np.argmin(results)
 print(closest_index)
    
 ```
+::: 
 
-#### Outer loop
+### Task: Outer loop
 
 Now put this loop into an outer loop, iterating over data.
 
+::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
 
 closest_index = []
@@ -146,11 +155,13 @@ for j, row in enumerate(data):
 print(closest_index)
    
 ```
+::: 
 
-### Assigning the points.
+###  Assigning the points.
 
-Now that we have all the nearest clusters, plot the points this way.
+Now that we have all the nearest clusters, plot color the points based on their assignment to the nearest cluster.
 
+::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
 fig,ax = plt.subplots()
 scatter = ax.scatter(data[:, 0], data[:, 1], c=closest_index, cmap='viridis', alpha=0.7)
@@ -158,16 +169,21 @@ ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=100, marker='X', lab
 plt.savefig("imgs/cluster_assignment.png")
 plt.show()
 ```
+:::
 
-### Step 4: calculate new mean per cluster
+### 3. Calculate new mean per cluster
 
-First, we add the vector containing the assigment to the cluster to the data frame.
+We have now assigned all points to these first 3 clusters. Now we calculate the new cluster mean per cluster.
 
-Then we caclculate the new means of those clusters.
+First, we add the vector containing the assignment to the cluster to the data frame.
+
 ```{python}
 data = np.column_stack((data, closest_index)) # add closest_index as column
 ```
 
+Then we calculate the new means of those clusters.
+
+::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
 # Calculate the new_centroids
 
@@ -182,9 +198,11 @@ for i in range(k):
     new_centroids.append(centroid)
 print(new_centroids)
 ```
+::: 
 
-# Plot the new centroids
+#### Plot the new centroids
 
+we can now plot the new centroids, by updaing the first plot.
 ```{python}
 new_centroids = np.array(new_centroids)  # Convert list to (k, 2) NumPy array
 
@@ -198,8 +216,11 @@ plt.savefig("imgs/cluster_assignment2.png")
 plt.show()
 ```
 
-## Reassign the points.
+## Repeat. Reassign the points.
+We now do steps 3 and 4, until the centroids are stable.
 
+
+## Putting it all together:
 ```{python}
 import numpy as np
 import matplotlib.pyplot as plt
@@ -207,71 +228,7 @@ import random
 
 # --- Settings ---
 k = 3
-max_iters = 1000
-
-# --- Use only x,y coordinates (keep it simple) ---
-X = data[:, :2]  # if data has 2 cols already, this is identical
-n = X.shape[0]
-
-# --- 1) Initialize centroids by sampling rows from data ---
-indices = random.sample(range(n), k)
-centroids = X[indices, :].copy()
-
-# --- Distance function (your version) ---
-def calculate_euclidean_distance(point1, point2):
-    return np.sqrt(np.sum((point1 - point2) ** 2))
-
-# --- 2) Iterate: assign -> update ---
-for it in range(max_iters):
-    # Assign each point to nearest centroid (your nested-loop style)
-    closest_index = []
-    for j, row in enumerate(X):
-        results = []
-        for i, entry in enumerate(centroids):
-            distance = calculate_euclidean_distance(row, entry)
-            results.append(distance)
-        closest_index.append(int(np.argmin(results)))
-    closest_index = np.array(closest_index, dtype=int)
-
-    # Update centroids: mean of points in each cluster (first two columns only)
-    new_centroids = []
-    for i in range(k):
-        cluster_points = X[closest_index == i]
-        if cluster_points.size > 0:
-            centroid = cluster_points.mean(axis=0)
-        else:
-            # keep it simple: reinit empty cluster to a random data point
-            centroid = X[random.randrange(n)]
-        new_centroids.append(centroid)
-    new_centroids = np.array(new_centroids)
-
-    # Stop if nothing changes
-    if np.allclose(new_centroids, centroids):
-        break
-    centroids = new_centroids
-
-print(f"Finished after {it+1} iteration(s).")
-print("Centroids:\n", centroids)
-
-# --- Plot final assignment ---
-fig, ax = plt.subplots()
-scatter = ax.scatter(X[:, 0], X[:, 1], c=closest_index, cmap='viridis', alpha=0.7)
-ax.scatter(centroids[:, 0], centroids[:, 1], color='red', s=120, marker='X', label='Centroids')
-ax.set_title("K-means clustering (simple)")
-ax.legend()
-plt.colorbar(scatter, ax=ax, label="Centroid index")
-plt.show()
-```
-
-
-```{python}
-import numpy as np
-import matplotlib.pyplot as plt
-import random
-
-# --- Settings ---
-k = 3
-max_iters = 10  # Keep small for teaching/demo purposes
+max_iters = 10  # Keep small for now
 
 # --- Use only x,y coordinates (keep it simple) ---
 X = data[:, :2]  # if data has 2 cols already, this is identical
@@ -330,5 +287,58 @@ print(f"Finished after {it+1} iteration(s).")
 print("Final centroids:\n", centroids)
 ```
 
-### Evaluation metrics
+## Evaluation metrics
+
+We have now decided to cluster into 3 clusters. But how do we know that is this the right amount of clusters? 
+We can use a measure called **inertia**, which is the summed distance from all points to their respective cluster centroid:
+
+$$\text{Inertia} = \sum_{i=1}^{k} \sum_{\mathbf{x} \in C_i} \|\mathbf{x} - \boldsymbol{\mu}_i\|^2$$
+
+where:
+
+	•	$C_i$ is the set of points belonging to cluster i
+	•	$\boldsymbol{\mu}_i$ is the centroid of cluster i
+
+## Scicit-learn
+
+First, we make the clustering a bit easier. The [scikit-learn](https://scikit-learn.org/stable/) package allows clustering with a single line of code.
+
+### 1. Install scikit-learn into your .venv
+
+```{bash}
+pip install -U scikit-learn
+```
+
+### 2. Clustering with scikit-learn
+We repeat the clustering approach from above with one line of code:
+
+```{python}
+centroid, label, inertia = k_means(
+    data, n_clusters=3, n_init="auto", random_state=0
+)
+```
+
+As we can see, the function returns three results: centroids (the location), labels (the assignments) and inertia.
+
+We can now easily loop over this function to find the optimal amount of clusters, by comparing inertia. We then plot the inertia for each loop in an elbow plot:
+
+```{python}
+elbow = list() # list to store interias
+for k in range(9):
+    centroid, label, inertia = k_means(
+            data, n_clusters=k+1, n_init="auto", random_state=0
+    )
+    elbow.append(inertia)
+```
+
+### 3. Generate elbow plot.
+Let's generate an elbow plot  to plot the inertia:
+
+```{python}
+plt.plot(range(1, 10), elbow, marker='o')
+plt.title('Elbow Method')
+plt.xlabel('Number of clusters')
+plt.ylabel('WCSS')
+plt.show()
+```
 
