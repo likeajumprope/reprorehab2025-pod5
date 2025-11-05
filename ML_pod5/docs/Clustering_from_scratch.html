@@ -299,7 +299,7 @@ window.Quarto = {
 <li>Each cluster has a “center” (called the centroid), which is the average of the data points in that cluster.</li>
 <li>Data points are assigned to the cluster with the nearest centroid, so items in the same cluster are more similar to each other than to items in other clusters.</li>
 </ul>
-<div id="23749dc0" class="cell" data-execution_count="1">
+<div id="1df4b1ed" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
@@ -310,7 +310,7 @@ window.Quarto = {
 <ol type="1">
 <li>Let’s generate some data:</li>
 </ol>
-<div id="61c397fc" class="cell" data-execution_count="2">
+<div id="59ef4dbf" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>centers <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">1</span>], [<span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>], [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data, labels_true <span class="op">=</span> make_blobs(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    n_samples<span class="op">=</span><span class="dv">750</span>, centers<span class="op">=</span>centers, cluster_std<span class="op">=</span><span class="fl">0.4</span>, random_state<span class="op">=</span><span class="dv">0</span></span>
@@ -336,7 +336,7 @@ window.Quarto = {
 <ol start="2" type="1">
 <li>Let’s make a simple plot of the data:</li>
 </ol>
-<div id="b9dbab62" class="cell" data-execution_count="3">
+<div id="077ed38b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(data[:,<span class="dv">0</span>], data[:,<span class="dv">1</span>])</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -367,9 +367,10 @@ window.Quarto = {
 <li>Repeat steps 3 and 4.</li>
 </ol>
 <p>Continue assigning points and updating centroids until:</p>
-<pre><code>•   The assignments don’t change anymore (algorithm has converged), or
-
-•   You reach a maximum number of iterations.</code></pre>
+<ul>
+<li><p>The assignments don’t change anymore (algorithm has converged), or</p></li>
+<li><p>You reach a maximum number of iterations.</p></li>
+</ul>
 </section>
 <section id="initialize-cluster-centroids" class="level3">
 <h3 class="anchored" data-anchor-id="initialize-cluster-centroids">1 Initialize cluster centroids</h3>
@@ -378,8 +379,8 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="task-drawing-random-centroids">Task: Drawing random centroids</h3>
 <ol type="1">
 <li><p>Copy the code from above to create the data. Recreate the plot.</p></li>
-<li><p>Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column 1, the corresponding y coordinates are in column 2.</p></li>
-<li><p>Draw three random points from the data to initialize the centroids (you can use the <code>random</code> package). Plot them into the plot in red.</p></li>
+<li><p>Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column one, the corresponding y coordinates are in column two.</p></li>
+<li><p>Draw three random points from the data to initialize the centroids (you can use the <code>random</code> package). Plot them into the plot above, in red.</p></li>
 </ol>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
@@ -393,25 +394,25 @@ Solution
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="6e735329" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 3 random rows from data</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">749</span>), <span class="dv">3</span>) <span class="co">#draw 3 random points within range 750</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> data[indices, :] <span class="co"># select those points from the data</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(centroids)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># add to plot</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>ax.scatter(data[:,<span class="dv">0</span>], data[:,<span class="dv">1</span>])</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="045aef95" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 3 random rows from data</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> random.sample(<span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">749</span>), <span class="dv">3</span>) <span class="co">#draw 3 random points within range 750</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> data[indices, :] <span class="co"># select those points from the data</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(centroids)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># add to plot</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>ax.scatter(data[:,<span class="dv">0</span>], data[:,<span class="dv">1</span>])</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[[ 0.88263041 -0.20465295]
- [ 0.49344827 -0.82079227]
- [ 0.15853059  1.68427935]]</code></pre>
+<pre><code>[[ 0.47525194 -1.31719059]
+ [-0.33579552  1.56140541]
+ [ 0.8566585  -1.34594223]]</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -428,12 +429,12 @@ Solution
 <section id="assigning-points-to-the-nearest-centroids." class="level2">
 <h2 class="anchored" data-anchor-id="assigning-points-to-the-nearest-centroids.">2. Assigning points to the nearest centroids.</h2>
 <p>Now that we have our initial guesses for the centroids, we can go to step 2.</p>
-<p>We will run this step in a two nested loops. The aim of this step is to assign each point from <code>data</code> to the nearest cluster centoid.</p>
-<p>The first loop runs trough the rows of <code>data</code>, takes one row each. In a second, inner loop, we cacluate the distance from the three centroids.</p>
+<p>We will run this step in two nested loops. The aim of this step is to assign each point from <code>data</code> to the nearest cluster centroid.</p>
+<p>The first loop runs trough the rows of <code>data</code>, selecting one row each. In a second, inner loop, we calculate the distance of the point defined by that row from the three centroids.</p>
 <section id="euclidean-distance-between-two-points" class="level3">
 <h3 class="anchored" data-anchor-id="euclidean-distance-between-two-points">Euclidean distance between two points</h3>
 <p>But first we need a measure to evaluate the distance between two data points.</p>
-<p>We use the euclidean distance betwen two vectors <span class="math inline">\(\mathbf{x}, \mathbf{y}\)</span>:</p>
+<p>We use the euclidean distance between two vectors <span class="math inline">\(\mathbf{x}, \mathbf{y}\)</span>:</p>
 <p><span class="math display">\[d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}\]</span></p>
 </section>
 <section id="task-euclidean-distance" class="level3">
@@ -451,13 +452,13 @@ Solution
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="a13f1b85" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_euclidean_distance(point1, point2):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((point1 <span class="op">-</span> point2) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>calculate_euclidean_distance(data[<span class="dv">0</span>], centroids[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="41fa57f9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_euclidean_distance(point1, point2):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((point1 <span class="op">-</span> point2) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>calculate_euclidean_distance(data[<span class="dv">0</span>], centroids[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>1.7006584834349796</code></pre>
+<pre><code>2.768322820403246</code></pre>
 </div>
 </div>
 </div>
@@ -466,7 +467,7 @@ Solution
 </section>
 <section id="task-inner-loop" class="level3">
 <h3 class="anchored" data-anchor-id="task-inner-loop">Task Inner loop</h3>
-<p>Write a loop to compare the first row of <code>data</code> to all three rows of <code>centroids</code>. Compare the outcomes. Save which centroid is the closest.</p>
+<p>Write a loop to compare the first row of <code>data</code> to all three rows of <code>centroids</code>. Compare the outcomes. Save (for example in a list) the centroid that is the closest to the point defined by the row in data.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -479,17 +480,17 @@ Solution
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="9fabd085" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span>[]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(centroids):</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    distance <span class="op">=</span> calculate_euclidean_distance(data[<span class="dv">0</span>], entry)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    results.append(distance)</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>closest_index <span class="op">=</span> np.argmin(results)</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(closest_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cdd82c65" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span>[]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(centroids):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    distance <span class="op">=</span> calculate_euclidean_distance(data[<span class="dv">0</span>], entry)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    results.append(distance)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>closest_index <span class="op">=</span> np.argmin(results)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(closest_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2</code></pre>
+<pre><code>1</code></pre>
 </div>
 </div>
 </div>
@@ -511,21 +512,21 @@ Solution
 </div>
 <div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="c29fcec6" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>closest_index <span class="op">=</span> []</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j, row <span class="kw">in</span> <span class="bu">enumerate</span>(data):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(centroids):</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        distance <span class="op">=</span> calculate_euclidean_distance(row, entry)</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        results.append(distance)</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append the index of the centroid closest to this data point</span></span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    closest_index.append(np.argmin(results))</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(closest_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="51710a88" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>closest_index <span class="op">=</span> []</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j, row <span class="kw">in</span> <span class="bu">enumerate</span>(data):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> []</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, entry <span class="kw">in</span> <span class="bu">enumerate</span>(centroids):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        distance <span class="op">=</span> calculate_euclidean_distance(row, entry)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        results.append(distance)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Append the index of the centroid closest to this data point</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    closest_index.append(np.argmin(results))</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(closest_index)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[2, 1, 2, 1, 2, 2, 1, 0, 0, 2, 1, 1, 1, 0, 1, 2, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 2, 2, 0, 2, 1, 1, 2, 1, 2, 0, 2, 2, 1, 0, 1, 1, 1, 1, 1, 2, 0, 2, 1, 0, 0, 1, 1, 0, 1, 1, 2, 1, 1, 1, 0, 0, 0, 1, 2, 0, 1, 2, 2, 2, 1, 2, 2, 0, 1, 2, 1, 2, 1, 1, 1, 0, 2, 2, 2, 1, 0, 1, 1, 1, 2, 1, 2, 1, 0, 1, 1, 2, 2, 1, 1, 1, 2, 0, 0, 1, 0, 0, 0, 2, 1, 1, 2, 1, 0, 2, 1, 2, 1, 1, 1, 2, 2, 1, 0, 1, 2, 2, 0, 2, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 0, 2, 2, 1, 1, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 2, 1, 2, 1, 0, 1, 2, 1, 1, 1, 1, 0, 1, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 2, 1, 2, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 0, 1, 0, 0, 1, 1, 2, 0, 2, 0, 0, 2, 1, 0, 1, 2, 2, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 2, 2, 1, 2, 2, 2, 1, 2, 1, 1, 1, 0, 1, 1, 2, 1, 0, 1, 1, 0, 1, 1, 2, 2, 1, 1, 1, 2, 1, 2, 0, 2, 1, 0, 0, 1, 0, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 0, 0, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 2, 0, 1, 2, 2, 0, 2, 0, 2, 0, 1, 2, 2, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 2, 1, 1, 1, 2, 1, 2, 1, 1, 0, 2, 2, 0, 2, 1, 1, 2, 1, 2, 1, 2, 1, 0, 2, 1, 2, 1, 2, 0, 1, 1, 1, 1, 1, 2, 1, 2, 0, 1, 1, 0, 2, 1, 2, 1, 2, 2, 2, 2, 1, 2, 0, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 0, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1, 0, 1, 0, 0, 1, 0, 2, 1, 1, 1, 1, 1, 0, 1, 2, 2, 2, 2, 1, 2, 0, 1, 2, 1, 0, 2, 2, 1, 2, 1, 1, 2, 1, 2, 0, 0, 1, 1, 1, 0, 2, 1, 2, 2, 1, 2, 1, 1, 1, 1, 1, 2, 1, 0, 0, 1, 1, 1, 1, 2, 2, 2, 1, 0, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 0, 2, 1, 2, 1, 1, 2, 1, 1, 1, 2, 0, 2, 1, 1, 1, 2, 0, 2, 2, 1, 1, 1, 1, 2, 1, 2, 1, 2, 2, 0, 2, 1, 1, 1, 1, 1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 2, 2, 0, 1, 1, 0, 2, 0, 2, 1, 1, 2, 1, 1, 2, 2, 1, 0, 1, 0, 0, 2, 0, 1, 1, 2, 1, 2, 2, 1, 2, 1, 1, 2, 1, 2, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 1, 1, 2, 2, 1, 2, 0, 1, 0, 1, 2, 0, 1, 2, 0, 1, 2, 2, 1, 2, 2, 2, 1, 2, 1, 2, 2, 1, 1, 2, 2, 1, 0, 1, 2, 2, 2, 2, 0, 1, 1, 1, 0, 1, 2, 2, 1, 1, 0, 1, 0, 2, 1, 0, 0, 1, 2, 2, 0, 1, 1, 0, 2, 2, 1, 0, 0, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 0, 2, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 2, 0, 1, 1, 2, 2, 2, 1, 1, 0, 2, 2, 0, 1, 1, 1, 1, 1, 2, 1, 1, 0, 1, 1, 1, 0, 2, 0, 2, 1, 0, 2, 2, 0, 1, 0, 2, 0, 2, 2, 2, 1, 0, 0, 1, 1, 2, 1, 2, 2, 1, 2, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1]</code></pre>
+<pre><code>[1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 1, 1, 2, 1, 0, 0, 1, 0, 1, 2, 1, 1, 0, 2, 0, 0, 0, 0, 0, 1, 2, 1, 0, 2, 0, 1, 0, 2, 2, 1, 1, 0, 0, 0, 0, 2, 2, 0, 1, 0, 0, 1, 1, 1, 0, 1, 1, 2, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 2, 0, 0, 2, 1, 0, 1, 0, 2, 1, 0, 1, 1, 0, 0, 0, 1, 2, 0, 2, 2, 1, 1, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 2, 1, 2, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2, 1, 1, 0, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 2, 0, 1, 0, 0, 1, 1, 0, 2, 2, 0, 0, 0, 2, 2, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 2, 2, 0, 1, 2, 1, 2, 2, 1, 0, 2, 0, 1, 1, 1, 0, 1, 0, 0, 0, 2, 1, 0, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1, 0, 2, 1, 1, 1, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 1, 2, 1, 0, 2, 2, 2, 2, 0, 0, 1, 1, 0, 0, 1, 1, 2, 0, 2, 2, 0, 1, 2, 0, 0, 1, 2, 0, 1, 0, 2, 0, 1, 2, 2, 1, 1, 2, 1, 2, 1, 2, 0, 1, 1, 1, 0, 0, 0, 2, 2, 1, 2, 0, 1, 1, 2, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 2, 1, 1, 2, 1, 2, 0, 1, 0, 1, 2, 1, 2, 2, 1, 0, 1, 0, 1, 2, 0, 0, 0, 0, 0, 1, 0, 1, 2, 0, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 2, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1, 1, 0, 1, 1, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 2, 1, 2, 0, 0, 1, 1, 0, 1, 0, 0, 1, 1, 0, 2, 1, 1, 1, 2, 1, 0, 2, 2, 0, 0, 1, 1, 1, 1, 0, 1, 2, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 2, 0, 2, 1, 0, 2, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 2, 2, 0, 0, 0, 0, 1, 1, 1, 2, 0, 0, 2, 0, 1, 1, 0, 2, 1, 1, 1, 2, 1, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1, 2, 0, 0, 1, 2, 1, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 2, 0, 0, 1, 0, 1, 2, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 1, 1, 2, 1, 1, 1, 0, 0, 2, 1, 2, 1, 0, 1, 1, 0, 0, 1, 1, 0, 2, 0, 2, 2, 1, 2, 0, 0, 1, 2, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0, 1, 2, 2, 1, 1, 0, 1, 1, 0, 1, 1, 1, 2, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 2, 1, 0, 0, 2, 0, 1, 1, 0, 2, 1, 0, 0, 1, 0, 0, 0, 0, 1, 1, 2, 0, 2, 1, 1, 1, 0, 2, 2, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 2, 1, 0, 0, 0, 1, 2, 0, 0, 0, 0, 0, 0, 1, 2, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 2, 2, 0, 2, 2, 2, 1, 0, 0, 2, 0, 0, 1, 0, 1, 2, 1, 0, 2, 1, 1, 2, 0, 1, 1, 2, 1, 1, 1, 0, 1, 2, 0, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0]</code></pre>
 </div>
 </div>
 </div>
@@ -534,7 +535,7 @@ Solution
 </section>
 <section id="assigning-the-points." class="level3">
 <h3 class="anchored" data-anchor-id="assigning-the-points.">Assigning the points.</h3>
-<p>Now that we have all the nearest clusters, plot color the points based on their assignment to the nearest cluster.</p>
+<p>Now that we have assigned all points in data to the nearest centroid, we can color the points based on their assignment to the nearest cluster.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -547,12 +548,12 @@ Solution
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="668b0621" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(data[:, <span class="dv">0</span>], data[:, <span class="dv">1</span>], c<span class="op">=</span>closest_index, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"imgs/cluster_assignment.png"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="350fc279" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>fig,ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(data[:, <span class="dv">0</span>], data[:, <span class="dv">1</span>], c<span class="op">=</span>closest_index, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"imgs/cluster_assignment.png"</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -569,8 +570,8 @@ Solution
 <h3 class="anchored" data-anchor-id="calculate-new-mean-per-cluster">3. Calculate new mean per cluster</h3>
 <p>We have now assigned all points to these first 3 clusters. Now we calculate the new cluster mean per cluster.</p>
 <p>First, we add the vector containing the assignment to the cluster to the data frame.</p>
-<div id="0c6f7e6f" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.column_stack((data, closest_index)) <span class="co"># add closest_index as column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="8018ac33" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.column_stack((data, closest_index)) <span class="co"># add closest_index as column</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then we calculate the new means of those clusters.</p>
 <div class="callout callout-style-default callout-tip callout-titled" title="Solution">
@@ -585,21 +586,21 @@ Solution
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<div id="09da0209" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the new_centroids</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span>  <span class="co"># Number of clusters</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>new_centroids <span class="op">=</span>[]</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k):</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(i)</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mask data belonging to cluster i</span></span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    cluster_points <span class="op">=</span> data[data[:,<span class="dv">2</span>]<span class="op">==</span><span class="bu">float</span>(i)]</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    centroid <span class="op">=</span> cluster_points[:, :<span class="dv">2</span>].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute mean of these points</span></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    new_centroids.append(centroid)</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="b4dd851c" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the new_centroids</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span>  <span class="co"># Number of clusters</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>new_centroids <span class="op">=</span>[]</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k):</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#print(i)</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Mask data belonging to cluster i</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    cluster_points <span class="op">=</span> data[data[:,<span class="dv">2</span>]<span class="op">==</span><span class="bu">float</span>(i)]</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    centroid <span class="op">=</span> cluster_points[:, :<span class="dv">2</span>].mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compute mean of these points</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    new_centroids.append(centroid)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(new_centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[array([ 0.88225376, -0.16697143]), array([-0.62581587, -0.74159471]), array([0.57427549, 1.36351284])]</code></pre>
+<pre><code>[array([-0.63793036, -0.73857079]), array([0.30251138, 1.09768152]), array([ 0.99076237, -0.62510374])]</code></pre>
 </div>
 </div>
 </div>
@@ -608,17 +609,17 @@ Solution
 <section id="plot-the-new-centroids" class="level4">
 <h4 class="anchored" data-anchor-id="plot-the-new-centroids">Plot the new centroids</h4>
 <p>we can now plot the new centroids, by updaing the first plot.</p>
-<div id="985de8f8" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>new_centroids <span class="op">=</span> np.array(new_centroids)  <span class="co"># Convert list to (k, 2) NumPy array</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(data[:, <span class="dv">0</span>], data[:, <span class="dv">1</span>], c<span class="op">=</span>closest_index, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Now this works</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>ax.scatter(new_centroids[:, <span class="dv">0</span>], new_centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"imgs/cluster_assignment2.png"</span>)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cab5fe35" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>new_centroids <span class="op">=</span> np.array(new_centroids)  <span class="co"># Convert list to (k, 2) NumPy array</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>scatter <span class="op">=</span> ax.scatter(data[:, <span class="dv">0</span>], data[:, <span class="dv">1</span>], c<span class="op">=</span>closest_index, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Now this works</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ax.scatter(new_centroids[:, <span class="dv">0</span>], new_centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">100</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"imgs/cluster_assignment2.png"</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -636,70 +637,70 @@ Solution
 </section>
 <section id="putting-it-all-together" class="level2">
 <h2 class="anchored" data-anchor-id="putting-it-all-together">Putting it all together:</h2>
-<div id="dd74d04a" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Settings ---</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>max_iters <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Keep small for now</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Use only x,y coordinates (keep it simple) ---</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[:, :<span class="dv">2</span>]  <span class="co"># if data has 2 cols already, this is identical</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1) Initialize centroids by sampling rows from data ---</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> random.sample(<span class="bu">range</span>(n), k)</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> X[indices, :].copy()</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Distance function (your version) ---</span></span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_euclidean_distance(point1, point2):</span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((point1 <span class="op">-</span> point2) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot helper</span></span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_clusters(X, labels, centroids, i):</span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>    scatter <span class="op">=</span> ax.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>labels, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">120</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"K-means: iteration </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
-<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(scatter, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Centroid index"</span>)</span>
-<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2) Iterate: assign -&gt; update -&gt; plot ---</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assign each point to nearest centroid (your nested-loop style)</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>    closest_index <span class="op">=</span> []</span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, row <span class="kw">in</span> <span class="bu">enumerate</span>(X):</span>
-<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>        distances <span class="op">=</span> [calculate_euclidean_distance(row, c) <span class="cf">for</span> c <span class="kw">in</span> centroids]</span>
-<span id="cb20-37"><a href="#cb20-37" aria-hidden="true" tabindex="-1"></a>        closest_index.append(<span class="bu">int</span>(np.argmin(distances)))</span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a>    closest_index <span class="op">=</span> np.array(closest_index, dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot current state</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a>    plot_clusters(X, closest_index, centroids, it)</span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-43"><a href="#cb20-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update centroids</span></span>
-<span id="cb20-44"><a href="#cb20-44" aria-hidden="true" tabindex="-1"></a>    new_centroids <span class="op">=</span> []</span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k):</span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>        cluster_points <span class="op">=</span> X[closest_index <span class="op">==</span> i]</span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cluster_points.size <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> cluster_points.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb20-50"><a href="#cb20-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># reinit empty cluster to a random point</span></span>
-<span id="cb20-51"><a href="#cb20-51" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> X[random.randrange(n)]</span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a>        new_centroids.append(centroid)</span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>    new_centroids <span class="op">=</span> np.array(new_centroids)</span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stop if nothing changes</span></span>
-<span id="cb20-56"><a href="#cb20-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.allclose(new_centroids, centroids):</span>
-<span id="cb20-57"><a href="#cb20-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Converged after </span><span class="sc">{</span>it<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> iteration(s)."</span>)</span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> new_centroids</span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Finished after </span><span class="sc">{</span>it<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> iteration(s)."</span>)</span>
-<span id="cb20-63"><a href="#cb20-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final centroids:</span><span class="ch">\n</span><span class="st">"</span>, centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="9a4e11ea" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Settings ---</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>max_iters <span class="op">=</span> <span class="dv">10</span>  <span class="co"># Keep small for now</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Use only x,y coordinates (keep it simple) ---</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> data[:, :<span class="dv">2</span>]  <span class="co"># if data has 2 cols already, this is identical</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> X.shape[<span class="dv">0</span>]</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1) Initialize centroids by sampling rows from data ---</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> random.sample(<span class="bu">range</span>(n), k)</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>centroids <span class="op">=</span> X[indices, :].copy()</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Distance function (your version) ---</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_euclidean_distance(point1, point2):</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sqrt(np.<span class="bu">sum</span>((point1 <span class="op">-</span> point2) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot helper</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_clusters(X, labels, centroids, i):</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    scatter <span class="op">=</span> ax.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>labels, cmap<span class="op">=</span><span class="st">'viridis'</span>, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    ax.scatter(centroids[:, <span class="dv">0</span>], centroids[:, <span class="dv">1</span>], color<span class="op">=</span><span class="st">'red'</span>, s<span class="op">=</span><span class="dv">120</span>, marker<span class="op">=</span><span class="st">'X'</span>, label<span class="op">=</span><span class="st">'Centroids'</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"K-means: iteration </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(scatter, ax<span class="op">=</span>ax, label<span class="op">=</span><span class="st">"Centroid index"</span>)</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2) Iterate: assign -&gt; update -&gt; plot ---</span></span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> it <span class="kw">in</span> <span class="bu">range</span>(max_iters):</span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Assign each point to nearest centroid (your nested-loop style)</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    closest_index <span class="op">=</span> []</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j, row <span class="kw">in</span> <span class="bu">enumerate</span>(X):</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>        distances <span class="op">=</span> [calculate_euclidean_distance(row, c) <span class="cf">for</span> c <span class="kw">in</span> centroids]</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>        closest_index.append(<span class="bu">int</span>(np.argmin(distances)))</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    closest_index <span class="op">=</span> np.array(closest_index, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot current state</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>    plot_clusters(X, closest_index, centroids, it)</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Update centroids</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>    new_centroids <span class="op">=</span> []</span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(k):</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>        cluster_points <span class="op">=</span> X[closest_index <span class="op">==</span> i]</span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cluster_points.size <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> cluster_points.mean(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>            <span class="co"># reinit empty cluster to a random point</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> X[random.randrange(n)]</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>        new_centroids.append(centroid)</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>    new_centroids <span class="op">=</span> np.array(new_centroids)</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Stop if nothing changes</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> np.allclose(new_centroids, centroids):</span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Converged after </span><span class="sc">{</span>it<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> iteration(s)."</span>)</span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> new_centroids</span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Finished after </span><span class="sc">{</span>it<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss"> iteration(s)."</span>)</span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Final centroids:</span><span class="ch">\n</span><span class="st">"</span>, centroids)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -721,20 +722,13 @@ Solution
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="Clustering_from_scratch_files/figure-html/cell-13-output-4.png" width="580" height="431" class="figure-img"></p>
-</figure>
-</div>
-</div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Converged after 4 iteration(s).
-Finished after 4 iteration(s).
+<pre><code>Converged after 3 iteration(s).
+Finished after 3 iteration(s).
 Final centroids:
- [[-1.30266211 -0.65704205]
- [ 0.6954587  -0.64442334]
- [ 0.62260555  1.3172598 ]]</code></pre>
+ [[ 0.6954587  -0.64442334]
+ [ 0.62260555  1.3172598 ]
+ [-1.30266211 -0.65704205]]</code></pre>
 </div>
 </div>
 </section>
@@ -757,31 +751,31 @@ Final centroids:
 <section id="clustering-with-scikit-learn" class="level3">
 <h3 class="anchored" data-anchor-id="clustering-with-scikit-learn">2. Clustering with scikit-learn</h3>
 <p>We repeat the clustering approach from above with one line of code:</p>
-<div id="346b768b" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>centroid, label, inertia <span class="op">=</span> k_means(</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    data, n_clusters<span class="op">=</span><span class="dv">3</span>, n_init<span class="op">=</span><span class="st">"auto"</span>, random_state<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="014b3dda" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>centroid, label, inertia <span class="op">=</span> k_means(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    data, n_clusters<span class="op">=</span><span class="dv">3</span>, n_init<span class="op">=</span><span class="st">"auto"</span>, random_state<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As we can see, the function returns three results: centroids (the location), labels (the assignments) and inertia.</p>
 <p>We can now easily loop over this function to find the optimal amount of clusters, by comparing inertia. We then plot the inertia for each loop in an elbow plot:</p>
-<div id="5aacc072" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>elbow <span class="op">=</span> <span class="bu">list</span>() <span class="co"># list to store interias</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>):</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    centroid, label, inertia <span class="op">=</span> k_means(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>            data, n_clusters<span class="op">=</span>k<span class="op">+</span><span class="dv">1</span>, n_init<span class="op">=</span><span class="st">"auto"</span>, random_state<span class="op">=</span><span class="dv">0</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    elbow.append(inertia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f0b9f214" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>elbow <span class="op">=</span> <span class="bu">list</span>() <span class="co"># list to store interias</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">9</span>):</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    centroid, label, inertia <span class="op">=</span> k_means(</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>            data, n_clusters<span class="op">=</span>k<span class="op">+</span><span class="dv">1</span>, n_init<span class="op">=</span><span class="st">"auto"</span>, random_state<span class="op">=</span><span class="dv">0</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    elbow.append(inertia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="generate-elbow-plot." class="level3">
 <h3 class="anchored" data-anchor-id="generate-elbow-plot.">3. Generate elbow plot.</h3>
 <p>Let’s generate an elbow plot to plot the inertia:</p>
-<div id="dac10540" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>), elbow, marker<span class="op">=</span><span class="st">'o'</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Elbow Method'</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of clusters'</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'WCSS'</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="45ef43dc" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>), elbow, marker<span class="op">=</span><span class="st">'o'</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Elbow Method'</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Number of clusters'</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'WCSS'</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">

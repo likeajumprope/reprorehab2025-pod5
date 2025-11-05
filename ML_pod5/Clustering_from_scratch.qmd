@@ -59,9 +59,9 @@ Once points are grouped, recalculate the centroid of each cluster — this becom
 
 Continue assigning points and updating centroids until:
 
-	•	The assignments don’t change anymore (algorithm has converged), or
+- The assignments don’t change anymore (algorithm has converged), or
     
-	•	You reach a maximum number of iterations.
+- You reach a maximum number of iterations.
 
 ### 1 Initialize cluster centroids
 
@@ -69,9 +69,9 @@ Continue assigning points and updating centroids until:
 
 1. Copy the code from above to create the data. Recreate the plot.
 
-2. Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column 1, the corresponding y coordinates are in column 2.
+2. Inspect the data. The data is structured in x-y coordinates: All x coordinates are in column one, the corresponding y coordinates are in column two.
 
-3. Draw three random points from the data to initialize the centroids (you can use the `random` package). Plot them into the plot in red.
+3. Draw three random points from the data to initialize the centroids (you can use the `random` package). Plot them into the plot above,  in red.
 
 ::: {.callout-tip title="Solution" collapse="true"}
 
@@ -97,14 +97,14 @@ plt.show()
 
 Now that we have our initial guesses for the centroids, we can go to step 2. 
 
-We will run this step in a two nested loops. The aim of this step is to assign each point from `data` to the nearest cluster centoid. 
+We will run this step in two nested loops. The aim of this step is to assign each point from `data` to the nearest cluster centroid. 
 
-The first loop runs trough the rows of `data`, takes one row each. In a second, inner loop, we cacluate the distance from the three centroids.
+The first loop runs trough the rows of `data`, selecting one row each. In a second, inner loop, we calculate the distance of the point defined by that row from the three centroids.
 
 ### Euclidean distance between two points
 But first we need a measure to evaluate the distance between two data points.
 
-We use the euclidean distance betwen two vectors $\mathbf{x}, \mathbf{y}$:
+We use the euclidean distance between two vectors $\mathbf{x}, \mathbf{y}$:
 
 $$d(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{i=1}^{n} (x_i - y_i)^2}$$
 
@@ -124,7 +124,7 @@ calculate_euclidean_distance(data[0], centroids[0])
 
 ### Task Inner loop
 
-Write a loop to compare the first row of `data` to all three rows of `centroids`. Compare the outcomes. Save which centroid is the closest.
+Write a loop to compare the first row of `data` to all three rows of `centroids`. Compare the outcomes. Save (for example in a list) the  centroid that is the closest to the point defined by the row in data.
 
 ::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
@@ -165,7 +165,7 @@ print(closest_index)
 
 ###  Assigning the points.
 
-Now that we have all the nearest clusters, plot color the points based on their assignment to the nearest cluster.
+Now that we have assigned all points in data to the nearest centroid, we can  color the points based on their assignment to the nearest cluster.
 
 ::: {.callout-tip title="Solution" collapse="true"}
 ```{python}
