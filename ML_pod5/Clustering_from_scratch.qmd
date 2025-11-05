@@ -44,17 +44,23 @@ The plots clearly shows 3 clusters. Our aim is to identify these three clusters 
 ### K - means clustering explained
 
 1.	Initialize cluster centroids.
+
 Pick k starting points (“centroids”), usually randomly. These are the initial guesses for the centers of your clusters.
 
-2. Assign points to the nearest centroid
+2. Assign points to the nearest centroid.
+
 For each data point, calculate the distance to each centroid (e.g., using Euclidean distance) and assign the point to the closest one.
 
-3. Update the centroids
+3. Update the centroids.
+
 Once points are grouped, recalculate the centroid of each cluster — this becomes the new center (mean position) of the cluster.
 
-4.	Repeat steps 3 and 4
+4.	Repeat steps 3 and 4.
+
 Continue assigning points and updating centroids until:
+
 	•	The assignments don’t change anymore (algorithm has converged), or
+    
 	•	You reach a maximum number of iterations.
 
 ### 1 Initialize cluster centroids
@@ -297,9 +303,10 @@ $$\text{Inertia} = \sum_{i=1}^{k} \sum_{\mathbf{x} \in C_i} \|\mathbf{x} - \bold
 where:
 
 	•	$C_i$ is the set of points belonging to cluster i
+    
 	•	$\boldsymbol{\mu}_i$ is the centroid of cluster i
 
-## Scicit-learn
+## Scikit-learn
 
 First, we make the clustering a bit easier. The [scikit-learn](https://scikit-learn.org/stable/) package allows clustering with a single line of code.
 
