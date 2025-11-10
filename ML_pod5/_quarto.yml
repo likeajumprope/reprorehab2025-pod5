@@ -20,6 +20,7 @@ website:
           - Regression_from_scratch.qmd
           - Clustering_from_scratch.qmd
           - More_clustering_algorithms.qmd
+          - Dimensionality_reduction.qmd
       
 
 format:
