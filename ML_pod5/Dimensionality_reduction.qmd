@@ -6,7 +6,7 @@ Dimensionality reduction is the art of compressing data without losing its essen
 
 Why do we need dimensionality reduction?
 
-1. The Course of dimensionality
+1. The curse of dimensionality
 
 - If the data set has n dimensions, we need >>n data points
 
