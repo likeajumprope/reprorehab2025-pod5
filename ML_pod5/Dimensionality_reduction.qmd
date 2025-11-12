@@ -266,10 +266,23 @@ eigvals, eigvecs = np.linalg.eigh(Cov)     # eigvecs columns = eigenvectors
 idx = np.argsort(eigvals)[::-1]
 eigvals = eigvals[idx]
 eigvecs = eigvecs[:, idx]
-
 print(eigvals)
 print(eigvecs)
+
 ```
+
+```{python}
+import pandas as pd
+loadings = pd.DataFrame(
+    eigvecs,
+    index=feature_names,
+    columns=[f"PC{i}" for i in range(1, eigvecs.shape[1]+1)]
+)
+
+print("\n=== PCA Eigenvalues & Explained Variance ===")
+print(loadings.round(4))
+```
+
 
 ## Plotting
 
@@ -297,7 +310,7 @@ plt.show()
 # --- P Plot eigenvectors as red arrows
 # Scale arrows by eigenvalues (optional: to make them more visible)
 scaling_factor = 3  # tweak for visibility
-for i in range(2):
+for i in range(4):
     plt.arrow(0, 0, eigvecs[i, 0]*scaling_factor, eigvecs[i, 1]*scaling_factor,
               color='red', width=0.015, head_width=0.15)
     plt.text(eigvecs[i, 0]*scaling_factor*1.15,
@@ -309,12 +322,12 @@ for label in np.unique(y):
     plt.scatter(Z[mask, 0], Z[mask, 1],
                 alpha=0.7, s=40, label=target_names[label])
 
-# --- 3️⃣ Label axes with variance explained
+# ---  Label axes with variance explained
 explained_var_ratio = eigvals / eigvals.sum()
 plt.xlabel(f"PC1 ({explained_var_ratio[0]*100:.1f}% variance)")
 plt.ylabel(f"PC2 ({explained_var_ratio[1]*100:.1f}% variance)")
 
-plt.title("PCA Biplot — Data and Eigenvectors (Iris dataset)")
+plt.title("PCA Biplot — Data and Loadings (Iris dataset)")
 plt.legend()
 plt.axhline(0, color='gray', linewidth=0.5)
 plt.axvline(0, color='gray', linewidth=0.5)
@@ -518,5 +531,43 @@ plt.axhline(0, color='gray', lw=0.6); plt.axvline(0, color='gray', lw=0.6)
 plt.grid(True, ls='--', alpha=0.35); plt.legend()
 plt.tight_layout(); plt.show()
 
+```
+:::
+
+::: {.callout-note collapse="true" title="More stuff"}
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
+
+
+components = pca.components_   # eigenvectors (directions)
+scores = X_pca                 # principal component scores
+X_centered = X_std             # standardized data is already centered
+
+# 4️⃣ First eigenvector (red arrow)
+v1 = components[0]
+origin = np.mean(X_centered, axis=0)
+
+# 5️⃣ Plot
+fig, ax = plt.subplots(figsize=(7,7))
+ax.scatter(X_centered[:,0], X_centered[:,1], alpha=0.3, label='Data (centered)')
+
+# Eigenvector direction
+ax.arrow(origin[0], origin[1], v1[0]*2, v1[1]*2, 
+         color='red', width=0.2, head_width=0.4, label='1st eigenvector')
+
+# Projection of data onto the 1st eigenvector
+proj = np.outer(scores[:,0], v1)
+ax.scatter(proj[:,0], proj[:,1], color='blue', alpha=0.5, label='Projections (1st PC)')
+
+ax.set_aspect('equal')
+ax.legend()
+ax.set_title("Eigenvector (direction) vs. Principal Component (projection)")
+plt.xlabel("Feature 1 (standardized)")
+plt.ylabel("Feature 2 (standardized)")
+plt.show()
 ```
 :::
